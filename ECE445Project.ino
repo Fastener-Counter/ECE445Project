@@ -30,5 +30,7 @@ void setup()
 void loop()
 {
   // Request and read the 2 address bytes from the GP2Y0E02B
-  Infrared::read(100);
+  float distance = Infrared::read(SLOW_CYCLE);
+  Counter::readInput(distance);
+  Serial.println(Counter::readCount());
 }

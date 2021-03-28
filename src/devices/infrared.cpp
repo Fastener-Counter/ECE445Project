@@ -34,9 +34,11 @@ static float Infrared::read(int delay_time) {
     test = (high * 16 + low) / 16 / pow(2, shift);
     test = map(test, 2, 63.75, 4.0, 50.0);
 
-    Serial.print("Distance is ");
-    Serial.print(test);
-    Serial.println("CM");
+    // Serial.print("Distance is ");
+    // Serial.print(test);
+    // Serial.println("CM");
 
     delay(delay_time);
+
+    return test
 }
