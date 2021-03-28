@@ -20,13 +20,13 @@
 
 class Counter {
 private:
-	static ArduinoQueue<int> slow_window(WINDOW_SIZE);
+	static ArduinoQueue<int> slow_window;
 	static int count;
 	static int previous_sum;
-	void changeCount(int sum);
+	static void changeCount(int sum);
 public:
-	void readInput(float distance);
-	void readCount();
+	static void readInput(float distance);
+	static int readCount();
 };
 
 #endif

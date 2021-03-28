@@ -40,5 +40,5 @@ static float Infrared::read(int delay_time) {
 
     delay(delay_time);
 
-    return test
+    return test;
 }
