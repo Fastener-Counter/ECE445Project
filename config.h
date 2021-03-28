@@ -1,5 +1,5 @@
 #ifndef CONFIG_H
 
-#include "devices/infrared.h"
+#include "src/devices/infrared.h"
 
 #endif CONFIG_H

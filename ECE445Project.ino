@@ -13,8 +13,7 @@ GP2Y0E03            Arduino
 7.PIN--SDA          A4
 
 ***************************************************************/
-
-#include <config.h>
+#include "config.h"
 
 void setup()
 {

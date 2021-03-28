@@ -10,11 +10,11 @@
 class Infrared {
 private:
     static int shift;
-    Infrared();
 
 public:
     static float read(int delay_time);
-}
+    Infrared();
+};
 
 
 #endif
