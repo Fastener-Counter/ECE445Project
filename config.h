@@ -4,4 +4,4 @@
 
 #include "src/algorithm/count.h"
 
-#endif CONFIG_H
+#endif
