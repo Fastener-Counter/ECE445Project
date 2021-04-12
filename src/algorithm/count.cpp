@@ -6,7 +6,7 @@ static int Counter::previous_sum = 0;
 
 static void Counter::changeCount(int sum) {
 	if (sum < 10 && previous_sum >= 10) {
-		count++;
+		count++; 
 	}
 	previous_sum = sum;
 }
