@@ -18,20 +18,24 @@ GP2Y0E03            Arduino
 void setup()
 {
   // Start comms
-  Wire.begin();
+  //Wire.begin();
   Serial.begin(9600);
   
   delay(50);  // Delay so everything can power up
   
   // Read the sift bit register from the module, used in calculating range
-  Infrared inf_senor;
+//  Infrared inf_sensor;
 }
 
 void loop()
 {
   // Request and read the 2 address bytes from the GP2Y0E02B
-  float distance = Infrared::read(SLOW_CYCLE);
-
-  Counter::readInput(distance);
-  //Serial.println(Counter::readCount());
+  Infrared::read(SLOW_CYCLE);
+  //float distance1 = ((float)analogRead(0))/1023*5*(-30.0)+67;
+  Counter::readInput();
+//  Serial.println(Counter::readCount());
+  
+//  Serial.println(((float)analogRead(2))/1023*5*(-30.0)+67);
+  
+  
 }

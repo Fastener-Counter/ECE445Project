@@ -1,4 +1,5 @@
 #ifndef INFRARED_H
+#define INFRARED_H
 
 #include <Wire.h>
 #include <Arduino.h>
@@ -9,10 +10,13 @@
 
 class Infrared {
 private:
-    static int shift;
 
 public:
-    static float read(int delay_time);
+    static float distance1;
+    static float distance2;
+    static float distance3;
+    
+    static void read(int delay_time);
     Infrared();
 };
 
