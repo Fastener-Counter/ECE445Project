@@ -31,6 +31,7 @@ private:
 public:
 	static void readInput();
 	static int readCount();
+	static void clearCount();
 };
 
 #endif

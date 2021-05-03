@@ -25,6 +25,7 @@ static void Counter::changeCount(int sum1, int sum2, int sum3) {
 		count++; 
 		Serial.println(count);
 	}
+		
 	previous_sum = sum;
 }
 
@@ -33,11 +34,11 @@ static void Counter::readInput() {
 	int detect_flag2 = (int)(Infrared::distance2>=THRESHOLD_LB && Infrared::distance2<=THRESHOLD_HB);
 	int detect_flag3 = (int)(Infrared::distance3>=THRESHOLD_LB && Infrared::distance3<=THRESHOLD_HB);
 
-	Serial.print(Infrared::distance1);
-	Serial.print(' ');
-	Serial.print(Infrared::distance2);
-	Serial.print(' ');
-	Serial.println(Infrared::distance3);
+	// Serial.print(Infrared::distance1);
+	// Serial.print(' ');
+	// Serial.print(Infrared::distance2);
+	// Serial.print(' ');
+	// Serial.println(Infrared::distance3);
 
 	// Serial.print(detect_flag1);
 	// Serial.print(' ');
@@ -61,4 +62,8 @@ static void Counter::readInput() {
 
 static int Counter::readCount() {
 	return count;
+}
+
+static void Counter::clearCount() {
+	count = 0;
 }

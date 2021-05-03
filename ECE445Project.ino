@@ -15,16 +15,22 @@ GP2Y0E03            Arduino
 ***************************************************************/
 #include "config.h"
 
+String readMessage;
+//unsigned time_now = millis();
+int state;
+
 void setup()
 {
   // Start comms
-  //Wire.begin();
+//  Wire.begin();
+  state = 1;
   Serial.begin(9600);
   
   delay(50);  // Delay so everything can power up
-  
+  Wifi::init(true);
   // Read the sift bit register from the module, used in calculating range
 //  Infrared inf_sensor;
+//  Wifi::send("AT+GMR");
 }
 
 void loop()
@@ -32,9 +38,22 @@ void loop()
   // Request and read the 2 address bytes from the GP2Y0E02B
   Infrared::read(SLOW_CYCLE);
   //float distance1 = ((float)analogRead(0))/1023*5*(-30.0)+67;
-  Counter::readInput();
 //  Serial.println(Counter::readCount());
-  
+//  time_now = millis();
+   int ret = Wifi::read();
+//   Serial.println(state);
+   if (ret > 0 && ret!=3) {
+      state = ret;
+   }
+   if (state==1) {
+      Counter::readInput();
+   }
+   else if (ret==3) {
+      Counter::clearCount();
+   }
+
+//  while (millis() < time_now + 100) {}
+
 //  Serial.println(((float)analogRead(2))/1023*5*(-30.0)+67);
   
   
