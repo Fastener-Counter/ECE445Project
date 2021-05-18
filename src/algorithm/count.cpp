@@ -7,8 +7,10 @@ static ArduinoQueue<int> Counter::slow_window3(WINDOW_SIZE);
 
 static int Counter::count = 0;
 static int Counter::previous_sum = 0;
+String S;
+static int maxSum;
 
-static void Counter::changeCount(int sum1, int sum2, int sum3) {
+static int Counter::changeCount(int sum1, int sum2, int sum3) {
 	int sum = 0;
 	if (sum1 > sum) sum = sum1;
 	if (sum2 > sum) sum = sum2;
@@ -23,10 +25,11 @@ static void Counter::changeCount(int sum1, int sum2, int sum3) {
 
 	if (sum < ITEM_THRESHOLD && previous_sum >= ITEM_THRESHOLD) {
 		count++; 
-		Serial.println(count);
+		// Serial.println(count);
 	}
 		
 	previous_sum = sum;
+	return sum;
 }
 
 static void Counter::readInput() {
@@ -34,11 +37,6 @@ static void Counter::readInput() {
 	int detect_flag2 = (int)(Infrared::distance2>=THRESHOLD_LB && Infrared::distance2<=THRESHOLD_HB);
 	int detect_flag3 = (int)(Infrared::distance3>=THRESHOLD_LB && Infrared::distance3<=THRESHOLD_HB);
 
-	// Serial.print(Infrared::distance1);
-	// Serial.print(' ');
-	// Serial.print(Infrared::distance2);
-	// Serial.print(' ');
-	// Serial.println(Infrared::distance3);
 
 	// Serial.print(detect_flag1);
 	// Serial.print(' ');
@@ -53,9 +51,24 @@ static void Counter::readInput() {
 	if (slow_window3.isFull()) slow_window3.dequeue();
 	slow_window3.enqueue(detect_flag3);
 
-	changeCount(slow_window1.sum(), slow_window2.sum(), slow_window3.sum());
+	maxSum=changeCount(slow_window1.sum(), slow_window2.sum(), slow_window3.sum());
 	// Serial.print(slow_window.sum());
 	// Serial.print(' ');
+	// Serial.println(count);
+
+	S=String(Infrared::distance1)+','+String(Infrared::distance2)+','+String(Infrared::distance3)+','+
+	  String(count)+','+
+	  String(detect_flag1)+','+String(detect_flag2)+','+String(detect_flag3)+','+
+	  String(slow_window1.sum())+','+String(slow_window2.sum())+','+String(slow_window3.sum())+','
+	  +String(maxSum)+','+String(ITEM_THRESHOLD);
+	 Serial.println(S);
+
+	// Serial.print(Infrared::distance1);
+	// Serial.print(',');
+	// Serial.print(Infrared::distance2);
+	// Serial.print(',');
+	// Serial.print(Infrared::distance3);
+	// Serial.print(',');
 	// Serial.println(count);
 	
 }

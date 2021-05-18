@@ -12,6 +12,7 @@ void Wifi::init(bool testFlag = false) {
     wifiSerial.begin(9600);
     delay(1000);
     wifiSerial.println("AT+CIPMUX=1");
+    delay(1000);
     wifiSerial.println("AT+CIPSERVER=1");
     test = testFlag;
     message="";
@@ -34,6 +35,11 @@ int Wifi::read() {
             if (message=="start") status = 1;
             if (message=="stop") status = 2;
             if (message=="clear") status = 3;
+            if (message[0]=="-") {
+                status = 4;
+                //ip = message.substring(1, message.length());
+                
+            }
             message="";
 
             return status;

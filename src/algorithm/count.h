@@ -27,7 +27,7 @@ private:
 	static ArduinoQueue<int> slow_window3;
 	static int count;
 	static int previous_sum;
-	static void changeCount(int sum1, int sum2, int sum3);
+	static int changeCount(int sum1, int sum2, int sum3);
 public:
 	static void readInput();
 	static int readCount();
