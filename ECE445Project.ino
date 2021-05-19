@@ -12,49 +12,62 @@ GP2Y0E03            Arduino
 6.PIN--SCL          A5
 7.PIN--SDA          A4
 
-***************************************************************/
-#include "config.h"
-
 String readMessage;
 //unsigned time_now = millis();
 int state;
+
+***************************************************************/
+#include "config.h"
+int target;
+int state=1;
+int ret=1;
+char usb_read='1';
 
 void setup()
 {
   // Start comms
 //  Wire.begin();
   state = 1;
+  target = 0;
   Serial.begin(9600);
-  
+  Serial.setTimeout(20);
   delay(50);  // Delay so everything can power up
+  
   Wifi::init(true);
-  // Read the sift bit register from the module, used in calculating range
+  Screen::init(true);  
+
+  
+// Read the sift bit register from the module, used in calculating range
 //  Infrared inf_sensor;
 //  Wifi::send("AT+GMR");
 }
 
+
 void loop()
-{
-  // Request and read the 2 address bytes from the GP2Y0E02B
-  Infrared::read(SLOW_CYCLE);
-  //float distance1 = ((float)analogRead(0))/1023*5*(-30.0)+67;
-//  Serial.println(Counter::readCount());
-//  time_now = millis();
-   int ret = Wifi::read();
-//   Serial.println(state);
-   if (ret > 0 && ret!=3) {
+{  
+    Infrared::read(SLOW_CYCLE);
+    char pin_read;
+    if (Wifi::available() > 0){    
+       usb_read=Wifi::read();
+       if(usb_read=='1'){ ret=1;}
+       if(usb_read=='2'){ ret=2;}
+       if(usb_read=='3'){ ret=3;} 
+    }
+    if (Screen::available() > 0){    
+       pin_read=Screen::read();
+       if(pin_read=='1'){ ret=1;}
+       if(pin_read=='2'){ ret=2;}
+       if(pin_read=='3'){ ret=3;} 
+    }
+   
+    if (ret > 0 && ret<3) {
       state = ret;
-   }
-   if (state==1) {
+    }
+    if (state==1) {
       Counter::readInput();
-   }
-   else if (ret==3) {
+    }
+    if (ret==3) {
       Counter::clearCount();
-   }
-
-//  while (millis() < time_now + 100) {}
-
-//  Serial.println(((float)analogRead(2))/1023*5*(-30.0)+67);
-  
+    }
   
 }
