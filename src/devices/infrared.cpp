@@ -12,9 +12,9 @@ Infrared::Infrared() {
 static void Infrared::read(int delay_time) {
 
     
-    distance1 = ((float)analogRead(A0))/1023*5*(-30.0)+67;
-    distance2 = ((float)analogRead(A1))/1023*5*(-30.0)+67;
-    distance3 = ((float)analogRead(A2))/1023*5*(-30.0)+67;
+    distance1 = ((float)analogRead(A0))/1023.0*5*(-30.0)+67;
+    distance2 = ((float)analogRead(A1))/1023.0*5*(-30.0)+67;
+    distance3 = ((float)analogRead(A3))/1023.0*5*(-30.0)+67;
 
     
 

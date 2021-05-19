@@ -1,5 +1,6 @@
 #include "wifi.h"
 
+static int Wifi::read_flag = 0;
 static String Wifi::message = "";
 static bool Wifi::test = false;
 static SoftwareSerial Wifi::wifiSerial = SoftwareSerial(WIFI_RX, WIFI_TX);
@@ -12,6 +13,7 @@ void Wifi::init(bool testFlag = false) {
     wifiSerial.begin(9600);
     delay(1000);
     wifiSerial.println("AT+CIPMUX=1");
+    delay(1000);
     wifiSerial.println("AT+CIPSERVER=1");
     test = testFlag;
     message="";
@@ -34,9 +36,32 @@ int Wifi::read() {
             if (message=="start") status = 1;
             if (message=="stop") status = 2;
             if (message=="clear") status = 3;
+            // if (message[0]=="-") {
+            //     status = 4;
+            //     //ip = message.substring(1, message.length());
+                
+            // }
+            if (message=="read") {
+                status = 4;
+                String m = String(Counter::readCount());
+                send("AT+CIPSEND=0,"+String(m.length()));
+                read_flag = 1;
+            }
             message="";
-
             return status;
+        }
+
+        if (read_flag==1) {
+            if (Serial.find('>')) {
+                String m = String(Counter::readCount());
+                send(m);
+                read_flag = 2;
+            }
+        }
+        else if (read_flag==2) {
+            if (Serial.find('OK')) {
+                read_flag = 0;
+            }
         }
 
         return 0;

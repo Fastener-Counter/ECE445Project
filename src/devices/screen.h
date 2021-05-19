@@ -1,22 +1,22 @@
-#ifndef WIFI_H
-#define WIFI_H
+#ifndef SCREEN_H
+#define SCREEN_H
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
-#include "../algorithm/count.h"
 
-#define WIFI_RX     12
-#define WIFI_TX     13      // TX and RX port in Arduino
+
 #define TIME_MAX    200
+#define SCREEN_RX     12
+#define SCREEN_TX     13      // TX and RX port in Arduino
 
-class Wifi {
+unsigned char ATFMessageService(unsigned char delaytimer);
+
+class Screen {
     private:
         static String message;
-        static int read_flag;
-
     
     public:
-        static SoftwareSerial wifiSerial;
+        static SoftwareSerial screenSerial;
         static bool test;
         static int read();
         static void send(String s);

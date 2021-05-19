@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="icon">
-    <file>sensor.png</file>
-    <file>on.png</file>
-    <file>off.png</file>
-  </qresource>
-</RCC>
