@@ -8,22 +8,27 @@ static ArduinoQueue<int> Counter::slow_window3(WINDOW_SIZE);
 static int Counter::count = 0;
 static int Counter::previous_sum = 0;
 
+
 static void Counter::changeCount(int sum1, int sum2, int sum3) {
+
 	int sum = 0;
 	if (sum1 > sum) sum = sum1;
 	if (sum2 > sum) sum = sum2;
 	if (sum3 > sum) sum = sum3;
 
 	if (sum != 0){
-		// Serial.print("Sum: ");
-		// Serial.println(sum);
-		// Serial.print(count);
+		Serial.println("@GUIS 0");
+		Serial.print("@SET 119 ");
+		Serial.println(count, 10);
 		
 	}
 
+
 	if (sum < ITEM_THRESHOLD && previous_sum >= ITEM_THRESHOLD) {
 		count++; 
-		Serial.println(count);
+		Serial.println("@GUIS 0");
+		Serial.print("@SET 109 ");
+		Serial.println(count, 10);
 	}
 		
 	previous_sum = sum;
@@ -67,3 +72,6 @@ static int Counter::readCount() {
 static void Counter::clearCount() {
 	count = 0;
 }
+
+
+
