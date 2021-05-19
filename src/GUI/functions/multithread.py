@@ -7,18 +7,19 @@ from . import connection, Qmessage
 class  RunThreand(QtCore.QThread):
     counter_value=QtCore.pyqtSignal(int)   #定义一个向主窗口传输当前计数值的signal, 如果要定义自己的信号,则必须将它们定义为类变量（不需要通过实例变量，直接类变量访问）
     all_data=QtCore.pyqtSignal(list)   #定义一个向主窗口传输当前计数值的signal, 如果要定义自己的信号,则必须将它们定义为类变量（不需要通过实例变量，直接类变量访问）
-    def __init__(self, parent = None, conn_type='USB'):
+    def __init__(self, parent = None, conn_type='USB',port='usbmodem143201'):
         super(RunThreand, self).__init__(parent) #设置默认属性
 
         self.count=0
         self.run=True
         self.conn_type=conn_type
+        self.port=port
         self.port_state=False
         self.monitoring=False
 
 
     def estb_connection(self):
-        self.connection=connection.connectTo(self.conn_type)
+        self.connection=connection.connectTo(self.conn_type,self.port)
         self.port_state=self.connection.connect()
         if self.port_state==True:
             print('connected')

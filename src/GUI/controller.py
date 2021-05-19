@@ -39,6 +39,7 @@ class mainWindow(QtWidgets.QMainWindow, ui_controller.Ui_MainWindow):
     def start(self, start_value=0):
         # self.stop_progress=False
         self.progress_value=int(self.lineEdit_2.text())
+        self.port=self.comboBox_2.currentText()
         self.run_thread.resume() #start
         # self.connection.write('start')
         # self.run_thread.start()

@@ -5,7 +5,6 @@ import pyqtgraph as pg
 import ui_monitor
 import numpy as np
 import sys
-import cv2
 
 class monitor_window(QtWidgets.QDialog, ui_monitor.Ui_window):
 
@@ -19,7 +18,6 @@ class monitor_window(QtWidgets.QDialog, ui_monitor.Ui_window):
         self.verticalLayout.addWidget(self.win)  # 添加绘图部件到线图部件的网格布局层
         self.verticalLayout_6.addWidget(self.win1) 
         self.verticalLayout_2.addWidget(self.win2) 
-
 
 
 
@@ -37,6 +35,8 @@ class monitor_window(QtWidgets.QDialog, ui_monitor.Ui_window):
         self.p = self.win.addPlot()                     #p是一张图
         self.p.setLabel('bottom', 'Time', 's')
         self.p.setXRange(-10, 0)                            #由于xrange，屏幕上只能打出6个trunk左右，所以我们看不到一整段被remove，所以整个就是连续的。
+#        self.p.setConfigOptions(antialias=True)
+
         self.dist_curves1 = []
         self.dist_curves2=[]
         self.dist_curves3=[]
