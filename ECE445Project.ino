@@ -22,6 +22,7 @@ int target;
 int state=1;
 int ret=1;
 char usb_read='1';
+int last_time;
 
 void setup()
 {
@@ -35,8 +36,10 @@ void setup()
   
   Wifi::init(true);
   Screen::init(true);  
-
+  last_time = millis();
   
+//    Wifi::wifiSerial.listen();
+//    Screen::screenSerial.listen();
 // Read the sift bit register from the module, used in calculating range
 //  Infrared inf_sensor;
 //  Wifi::send("AT+GMR");
@@ -45,29 +48,41 @@ void setup()
 
 void loop()
 {  
+    ret = 0;
     Infrared::read(SLOW_CYCLE);
     char pin_read;
+//    Serial.print(Wifi::available());
+//    Serial.print(' ');
+//    Serial.print(Screen::available());
+//    Serial.println();
+
     if (Wifi::available() > 0){    
-       usb_read=Wifi::read();
-       if(usb_read=='1'){ ret=1;}
-       if(usb_read=='2'){ ret=2;}
-       if(usb_read=='3'){ ret=3;} 
+       ret = Wifi::read();
     }
+    
     if (Screen::available() > 0){    
-       pin_read=Screen::read();
-       if(pin_read=='1'){ ret=1;}
-       if(pin_read=='2'){ ret=2;}
-       if(pin_read=='3'){ ret=3;} 
+       ret=Screen::read();
+       Serial.print("s");
+       Serial.println(Screen::tar());
+       
     }
-   
+
+    
     if (ret > 0 && ret<3) {
       state = ret;
     }
     if (state==1) {
       Counter::readInput();
     }
+    
+    if (Counter::readCount() >= Screen::tar()){
+        state = 2;
+    }
+    Counter::dis_cur_num();
     if (ret==3) {
       Counter::clearCount();
     }
+
+    Wifi::send();
   
 }

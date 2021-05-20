@@ -19,6 +19,7 @@
 
 #include <ArduinoQueue.h>
 #include "../devices/infrared.h"
+#include "../devices/screen.h"
 
 class Counter {
 private:
@@ -27,11 +28,17 @@ private:
 	static ArduinoQueue<int> slow_window3;
 	static int count;
 	static int previous_sum;
-	static void changeCount(int sum1, int sum2, int sum3);
+	static int max_sum;
+	static int detect_flag1;
+	static int detect_flag2;
+	static int detect_flag3;
+	static int changeCount(int sum1, int sum2, int sum3);
 public:
 	static void readInput();
 	static int readCount();
 	static void clearCount();
+	static String getString();
+	static void dis_cur_num();
 };
 
 #endif

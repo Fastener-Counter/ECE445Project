@@ -19,7 +19,7 @@ class Wifi {
         static SoftwareSerial wifiSerial;
         static bool test;
         static int read();
-        static void send(String s);
+        static void send();
         static int available();
         static void init(bool testFlag);
 };
